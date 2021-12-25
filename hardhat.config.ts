@@ -27,9 +27,20 @@ const config = {
     networks: {
         rinkeby: {
             url: process.env.RINKEBY_URL || '',
-            accounts:
-                process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+            accounts: {mnemonic: process.env.WALLET_MNEMONIC}
         },
+        testnet: {
+            url: "https://data-seed-prebsc-1-s1.binance.org:8545",
+            chainId: 97,
+            gasPrice: 20000000000,
+            accounts: {mnemonic: process.env.WALLET_MNEMONIC}
+        },
+        mainnet: {
+            url: "https://bsc-dataseed.binance.org/",
+            chainId: 56,
+            gasPrice: 20000000000,
+            accounts: {mnemonic: process.env.WALLET_MNEMONIC}
+        }
     },
     gasReporter: {
         enabled: process.env.REPORT_GAS !== undefined,
