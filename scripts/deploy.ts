@@ -3,8 +3,9 @@
 //
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
-import {ethers, run} from 'hardhat'
+import {ethers, run, upgrades} from 'hardhat'
 import {AFTGummies} from 'typechain-types'
+import '@openzeppelin/hardhat-upgrades'
 
 async function main() {
     // Hardhat always runs the compile task when running scripts with its command
@@ -16,7 +17,7 @@ async function main() {
 
     // We get the contract to deploy
     const AFTGummies = await ethers.getContractFactory('AFTGummies')
-    const aftGummies = await AFTGummies.deploy() as AFTGummies
+    const aftGummies = await upgrades.deployProxy(AFTGummies, [], {initializer: 'initialize'}) as AFTGummies
 
     await aftGummies.deployed()
 
